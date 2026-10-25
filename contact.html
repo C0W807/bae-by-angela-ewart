@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Draft: keep out of search results until launch. Remove this line to go live. -->
+  <meta name="robots" content="noindex">
+  <title>Book | BAE. by Angela Ewart</title>
+  <meta name="description" content="Book a lymphatic massage, wood therapy or Swedish massage at home in Dunfermline and surrounding areas.">
+  <meta name="theme-color" content="#F8F5EF">
+  <link rel="icon" href="assets/img/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:wght@300;400;500&family=Jost:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="BAE. by Angela Ewart, home">
+      <img src="assets/img/logo.png" alt="">
+      <span>BAE. Body</span>
+    </a>
+    <button class="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav"><span></span><span></span></button>
+    <nav class="nav" id="nav">
+      <a href="treatments.html">Treatments</a>
+      <a href="about.html">About Angela</a>
+      <a href="treatments.html#aftercare">Aftercare</a>
+      <a class="btn" href="contact.html" aria-current="page">Book</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="page-head">
+    <div class="leaves" aria-hidden="true"></div>
+    <div class="wrap head-split">
+     <div class="reveal">
+      <span class="eyebrow">Book or enquire</span>
+      <h1 class="display">A moment <br>for <span class="script" style="font-size:1.4em">you</span></h1>
+      <p class="lede">Tell Angela what you'd like and roughly where you are, and she'll come back to you to find a time.</p>
+     </div>
+      <div class="head-strip reveal">
+        <figure class="tile"><img src="assets/img/story-moment.jpg" alt="Soft linen in morning light. A moment for you."></figure>
+        <figure class="tile"><img src="assets/img/story-appointments.jpg" alt="Candles on natural stone. Appointments this week."></figure>
+        <figure class="tile"><img src="assets/img/reel-delivered.jpg" alt="Soft muslin in sunlight. Wellness delivered to you."></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="pad" style="padding-top:30px">
+    <div class="wrap contact-grid">
+
+      <div class="reveal">
+        <ul class="ways">
+          <li>
+            <span class="label">Email</span>
+            <span class="value"><span class="tbc">email to confirm</span></span>
+          </li>
+          <li>
+            <span class="label">Phone or WhatsApp</span>
+            <span class="value"><span class="tbc">number to confirm</span></span>
+          </li>
+          <li>
+            <span class="label">Instagram</span>
+            <span class="value"><span class="tbc">@handle to confirm</span></span>
+          </li>
+          <li>
+            <span class="label">Where</span>
+            <span class="value">Your home, across Dunfermline &amp; surrounding areas</span>
+          </li>
+        </ul>
+        <p class="small muted">Your consultation questions about your health are asked separately and kept private. There's no need to share medical details in this form.</p>
+      </div>
+
+      <form class="enquiry reveal" name="enquiry" method="POST" data-netlify="true" netlify-honeypot="company">
+        <div class="fields">
+          <input type="hidden" name="form-name" value="enquiry">
+          <p hidden><label>Leave this empty <input name="company"></label></p>
+          <div class="two">
+            <div class="field">
+              <label for="name">Your name</label>
+              <input id="name" name="name" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="area">Town or area</label>
+              <input id="area" name="area" placeholder="e.g. Dunfermline">
+            </div>
+          </div>
+          <div class="two">
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required>
+            </div>
+            <div class="field">
+              <label for="phone">Phone (optional)</label>
+              <input id="phone" name="phone" type="tel" autocomplete="tel">
+            </div>
+          </div>
+          <div class="field">
+            <label for="treatment">Treatment</label>
+            <select id="treatment" name="treatment">
+              <option>Lymphatic massage</option>
+              <option>Wood therapy</option>
+              <option>Swedish massage</option>
+              <option>Not sure yet</option>
+              <option>Gift voucher</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="message">Anything else?</label>
+            <textarea id="message" name="message" placeholder="Days and times that suit you"></textarea>
+          </div>
+          <p class="privacy">Angela will use your details only to reply to your enquiry. Please don't include medical information here.</p>
+          <button class="btn" type="submit">Send enquiry</button>
+          <p class="privacy form-error" role="alert" hidden style="margin:1.2rem 0 0">Online enquiries aren't open just yet. Please get in touch using the details opposite.</p>
+        </div>
+        <div class="form-done" role="status">
+          <span class="script">Thank you</span>
+          <p>Your message is on its way. Angela will be in touch soon.</p>
+        </div>
+      </form>
+
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span class="script">Before Anyone Else.</span>
+    <p class="name">BAE. by Angela Ewart</p>
+    <p>Massage, bodywork &amp; wellbeing · Mobile across Dunfermline &amp; surrounding areas</p>
+    <nav class="footer-nav">
+      <a href="treatments.html">Treatments</a>
+      <a href="about.html">About</a>
+      <a href="treatments.html#aftercare">Aftercare</a>
+      <a href="treatments.html#faq">FAQ</a>
+      <a href="contact.html">Book</a>
+      <a href="#" aria-label="Instagram (handle to confirm)">Instagram</a>
+    </nav>
+    <p class="fine">© <span data-year>2026</span> BAE. by Angela Ewart. Treatments are not a substitute for medical advice. If you have a medical condition, please speak to your GP before booking.</p>
+  </div>
+</footer>
+
+<script src="js/site.js"></script>
+</body>
+</html>
