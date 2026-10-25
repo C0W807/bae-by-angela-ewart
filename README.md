@@ -24,6 +24,14 @@ Everything marked with a dashed gold box on the site (`class="tbc"`):
 - Travel radius and any travel supplement
 - Deposit, payment methods and cancellation policy
 - Email, phone / WhatsApp and Instagram handle (contact page and footer links)
+- Qualifications and insurance (treatments page, home visits)
+- Offer amounts and terms: The BAE. Welcome, The BAE. Ritual, Bring Your BAE., gift
+  vouchers (treatments page, `#offers`)
+- Set-up time, and that the hygiene answer in the FAQ matches what she actually does
+- Privacy notice (`privacy.html`): her email, ICO registration, how long records are
+  kept, and which form service handles enquiries
+- At launch: "Bookings opening soon" on the home page becomes "Now booking", and the
+  `noindex` line comes out of every page
 
 Also:
 
