@@ -2,6 +2,8 @@
 <html lang="en-GB">
 <head>
   <meta charset="utf-8">
+  <!-- Ivory screen until the logo fade takes over, so nothing flashes on arrival -->
+  <script>document.documentElement.classList.add('js');if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('veiled');</script>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <!-- Draft: keep out of search results until launch. Remove this line to go live. -->
   <meta name="robots" content="noindex">
@@ -12,15 +14,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:wght@300;400;500&family=Jost:wght@300;400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=10">
+  <link rel="stylesheet" href="css/style.css?v=13">
 </head>
-<body>
+<body data-brand="by Angela Ewart">
 
 <header class="site-header">
   <div class="wrap">
     <a class="brand" href="index.html" aria-label="BAE. by Angela Ewart, home">
       <img src="assets/img/logo.png?v=2" alt="">
-      <span>BAE. Body</span>
+      <span class="brand-word" aria-hidden="true"><span class="bae">BAE.</span><span class="sub master">by Angela Ewart</span></span>
     </a>
     <button class="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav"><span></span><span></span></button>
     <nav class="nav" id="nav" aria-label="Main">
@@ -42,8 +44,25 @@
           </div>
         </div>
       </div>
+      <div class="nav-item has-panel">
+        <a class="nav-link" href="family.html">The BAE. family <svg class="chev" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5l5 5 5-5" fill="none" stroke="currentColor"/></svg></a>
+        <div class="panel">
+          <div class="panel-inner">
+            <div class="panel-treatments">
+              <a class="ptreat" href="family.html#body"><img src="assets/img/thumb-swedish.jpg" alt=""><span><strong>BAE. Body</strong><em>Available now</em></span></a>
+              <a class="ptreat" href="family.html#movement"><img src="assets/img/thumb-movement.jpg" alt=""><span><strong>BAE. Movement</strong><em>In the future</em></span></a>
+              <a class="ptreat" href="family.html#rituals"><img src="assets/img/thumb-rituals.jpg" alt=""><span><strong>BAE. Rituals</strong><em>In the future</em></span></a>
+              <a class="ptreat" href="family.html#retreats"><img src="assets/img/thumb-retreats.jpg" alt=""><span><strong>BAE. Retreats</strong><em>In the future</em></span></a>
+              <a class="ptreat" href="family.html#everyday"><img src="assets/img/thumb-everyday.jpg" alt=""><span><strong>BAE. Everyday</strong><em>One day, perhaps</em></span></a>
+            </div>
+            <div class="panel-more">
+              <a href="family.html">Explore the BAE. family</a>
+              <p class="panel-note">Only BAE. Body can be booked at the moment. The rest are on their way.</p>
+            </div>
+          </div>
+        </div>
+      </div>
       <a class="nav-link" href="about.html">About Angela</a>
-      <a class="nav-link" href="family.html">The BAE. family</a>
       <a class="btn" href="contact.html" aria-current="page">Book</a>
     </nav>
   </div>
@@ -165,10 +184,17 @@
         <a href="treatments.html#mobile">Home visits</a>
         <a href="treatments.html#offers">Offers &amp; vouchers</a>
       </nav>
+      <nav aria-label="The BAE. family">
+        <span class="fh">The BAE. family</span>
+        <a href="family.html#body">BAE. Body</a>
+        <a href="family.html#movement">BAE. Movement</a>
+        <a href="family.html#rituals">BAE. Rituals</a>
+        <a href="family.html#retreats">BAE. Retreats</a>
+        <a href="family.html#everyday">BAE. Everyday</a>
+      </nav>
       <nav aria-label="BAE.">
         <span class="fh">BAE.</span>
         <a href="about.html">About Angela</a>
-        <a href="family.html">The BAE. family</a>
         <a href="treatments.html#aftercare">Aftercare</a>
         <a href="treatments.html#faq">Questions</a>
         <a href="privacy.html">Privacy</a>
@@ -184,6 +210,6 @@
   </div>
 </footer>
 
-<script src="js/site.js?v=10"></script>
+<script src="js/site.js?v=13"></script>
 </body>
 </html>

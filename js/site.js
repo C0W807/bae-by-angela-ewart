@@ -147,4 +147,121 @@ if (form) {
   });
 }
 
+// Header name: "BAE." plus whichever part of BAE. you're in (data-brand on a
+// section, or the page's own on <body>), changing with a soft fade
+const MASTER = 'by Angela Ewart';
+const sub = document.querySelector('.brand .sub');
+if (sub) {
+  const base = document.body.dataset.brand || MASTER;
+  const zones = [...document.querySelectorAll('main [data-brand]')];
+  let shown = sub.textContent.trim();
+  let swap = null;
+  const show = (label) => {
+    if (label === shown) return;
+    shown = label;
+    clearTimeout(swap);
+    sub.classList.add('out');
+    swap = setTimeout(() => {
+      sub.textContent = label;
+      sub.classList.toggle('master', label === MASTER);
+      sub.classList.remove('out');
+    }, calm.matches ? 480 : 0);
+  };
+  const read = () => {
+    // Same reading line as the section bar, so the two always agree
+    const line = window.innerHeight * 0.35;
+    const here = zones.find((z) => {
+      const r = z.getBoundingClientRect();
+      return r.top <= line && r.bottom > line;
+    });
+    show(here ? here.dataset.brand : base);
+  };
+  let queued = false;
+  window.addEventListener('scroll', () => {
+    if (!queued) { queued = true; requestAnimationFrame(() => { queued = false; read(); }); }
+  }, { passive: true });
+  read();
+}
+
+// The logo veil. Every link, whether to another page or to a section of this one,
+// fades to ivory, lets the logo breathe while its ring draws, moves there unseen,
+// and fades back: no fast scrolling, and every place feels like its own page.
+const veil = document.createElement('div');
+veil.className = 'veil';
+veil.setAttribute('aria-hidden', 'true');
+veil.innerHTML =
+  '<div class="veil-mark"><svg class="veil-ring" viewBox="0 0 100 100"><circle cx="50" cy="50" r="47"/></svg>' +
+  '<img src="assets/img/logo.png?v=2" alt=""></div><span class="veil-word"></span>';
+document.body.appendChild(veil);
+const veilWord = veil.querySelector('.veil-word');
+const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+const draw = () => {
+  veil.classList.remove('drawing');
+  void veil.offsetWidth; // restart the ring
+  veil.classList.add('drawing');
+};
+const lift = () => veil.classList.remove('on', 'drawing');
+const useVeil = calm.matches;
+
+// Arriving on a page: the ivory screen from <head> becomes the veil, then lifts
+if (document.documentElement.classList.contains('veiled')) {
+  const brand = document.body.dataset.brand || MASTER;
+  veilWord.textContent = brand === MASTER ? 'BAE. by Angela Ewart' : `BAE. ${brand}`;
+  veil.classList.add('on');
+  draw();
+  requestAnimationFrame(() => document.documentElement.classList.remove('veiled'));
+  const started = performance.now();
+  const ready = Promise.race([
+    Promise.all([document.fonts ? document.fonts.ready : null, new Promise((r) => {
+      if (document.readyState === 'complete') r(); else window.addEventListener('load', r, { once: true });
+    })]),
+    wait(2200),
+  ]);
+  ready.then(() => wait(Math.max(0, 900 - (performance.now() - started)))).then(lift);
+}
+// Coming back with the Back button can restore a page with the veil still down
+window.addEventListener('pageshow', (e) => { if (e.persisted) lift(); });
+
+const labelFor = (a) => {
+  const strong = a.querySelector('strong, .next span');
+  const text = (strong ? strong.textContent : a.textContent).replace(/\s+/g, ' ').trim();
+  return text.length > 40 ? '' : text;
+};
+
+let travelling = false;
+document.addEventListener('click', async (e) => {
+  const a = e.target.closest('a[href]');
+  if (!a || !useVeil || e.defaultPrevented || e.button !== 0) return;
+  if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || a.target === '_blank' || a.hasAttribute('download')) return;
+  const href = a.getAttribute('href');
+  if (!href || href === '#') return;
+  const url = new URL(a.href, location.href);
+  if (url.origin !== location.origin) return;
+  e.preventDefault();
+  if (travelling) return;
+  travelling = true;
+
+  document.body.classList.remove('nav-open');
+  if (toggle) toggle.setAttribute('aria-expanded', 'false');
+  if (document.activeElement) document.activeElement.blur();
+
+  veilWord.textContent = labelFor(a);
+  veil.classList.add('on');
+  draw();
+  await wait(700);
+
+  const samePage = url.pathname === location.pathname && url.search === location.search;
+  if (!samePage) {
+    location.href = url.href; // the next page arrives under its own veil
+    return;
+  }
+  const target = url.hash ? document.getElementById(decodeURIComponent(url.hash.slice(1))) : null;
+  if (url.hash) history.pushState(null, '', url.hash);
+  if (target) target.scrollIntoView({ block: 'start' });
+  else window.scrollTo(0, 0);
+  await wait(650);
+  lift();
+  travelling = false;
+});
+
 document.querySelectorAll('[data-year]').forEach((el) => (el.textContent = new Date().getFullYear()));

@@ -36,7 +36,6 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
@@ -47,6 +46,8 @@ body {
   font-size: 17px;
   line-height: 1.75;
   -webkit-font-smoothing: antialiased;
+  /* No grey flash on tap (iOS); focus rings still show for keyboards */
+  -webkit-tap-highlight-color: transparent;
   overflow-x: hidden;
 }
 
@@ -209,7 +210,6 @@ h1, h2, h3 {
   backdrop-filter: blur(12px);
   border-bottom: 1px solid transparent;
   transition: border-color var(--settle) var(--ease);
-  view-transition-name: site-header;
   /* Reach up under the phone's status bar, so the page never shows above the header. */
   padding-top: var(--safe-top);
 }
@@ -229,13 +229,24 @@ h1, h2, h3 {
   text-decoration: none;
 }
 .brand img { width: 54px; height: auto; }
-.brand span {
+/* "BAE." stays; the word after it follows the part of BAE. you're looking at */
+.brand-word {
+  display: flex;
+  align-items: baseline;
+  gap: .6em;
   font-family: var(--display);
   font-size: 17px;
   letter-spacing: .3em;
   text-transform: uppercase;
   color: var(--espresso);
+  white-space: nowrap;
 }
+.brand .sub {
+  display: inline-block;
+  transition: opacity .5s var(--ease), filter .5s var(--ease), transform .6s var(--ease);
+}
+.brand .sub.master { font-family: var(--text); font-size: 10px; letter-spacing: .26em; color: var(--coffee); }
+.brand .sub.out { opacity: 0; filter: blur(4px); transform: translateY(-5px); }
 
 .nav { display: flex; align-items: center; gap: 36px; }
 .nav-link {
@@ -328,6 +339,7 @@ h1, h2, h3 {
   transition: color .6s var(--ease), padding-left .8s var(--ease);
 }
 .panel-more a:hover { color: var(--gold); padding-left: 6px; }
+.panel-note { margin: 10px 0 0; font-size: 13px; line-height: 1.6; color: var(--coffee); }
 
 .nav-toggle {
   display: none;
@@ -356,14 +368,15 @@ h1, h2, h3 {
      header pinned to the top; a translucent one leaves the page showing up there. */
   .site-header { background: var(--ivory); -webkit-backdrop-filter: none; backdrop-filter: none; }
   .brand img { width: 46px; }
-  .brand span { font-size: 15px; }
+  .brand-word { font-size: 15px; gap: .5em; }
+  .brand .sub.master { font-size: 9px; letter-spacing: .2em; }
   .nav-toggle { display: block; }
   /* Phone menu: a quiet full-height page, every treatment visible at once. */
-  /* The header's backdrop blur makes it the containing block for this fixed layer,
-     so it hangs from the header's bottom edge with an explicit height. */
+  /* Hangs just under the header. (The header has no blur on phones, so this is
+     measured from the screen; with a blur it would be measured from the header.) */
   .nav {
     position: fixed;
-    top: 100%;
+    top: var(--header-total);
     left: 0;
     right: 0;
     height: calc(100dvh - var(--header-total));
@@ -748,7 +761,7 @@ form.sent .form-done { display: block; }
 }
 .footer-cols {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 220px));
+  grid-template-columns: repeat(4, minmax(0, 200px));
   justify-content: center;
   gap: 40px clamp(30px, 6vw, 90px);
   margin: 3rem 0 1rem;
@@ -757,7 +770,8 @@ form.sent .form-done { display: block; }
 .footer-cols .fh { font-family: var(--display); font-size: 1.15rem; letter-spacing: .2em; text-transform: uppercase; color: var(--ivory); margin-bottom: 6px; }
 .footer-cols a, .footer-cols span:not(.fh) { font-size: 14px; text-decoration: none; color: var(--linen); transition: color .6s var(--ease); }
 .footer-cols a:hover { color: var(--ivory); }
-@media (max-width: 700px) { .footer-cols { grid-template-columns: 1fr; } }
+@media (max-width: 860px) { .footer-cols { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px) { .footer-cols { grid-template-columns: 1fr; } }
 .site-footer .fine {
   border-top: 1px solid rgba(234, 224, 210, .25);
   padding-top: 28px;
@@ -1254,12 +1268,60 @@ section { overflow: clip; }
   0%, 48% { opacity: 0; } 58%, 88% { opacity: 1; } 100% { opacity: 0; }
 }
 
-/* ---------- Between pages: a slow cross-fade (where supported) ---------- */
+/* ---------- Between places: the logo veil ----------
+   Every link, to another page or a section of this one, fades to ivory, lets the
+   logo breathe while its ring draws, moves there out of sight, then fades back.
+   No fast scrolling anywhere. */
 
-@view-transition { navigation: auto; }
-::view-transition-old(root), ::view-transition-new(root) {
-  animation-duration: .9s;
-  animation-timing-function: var(--ease);
+html.veiled::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: var(--ivory);
+  /* Failsafe: if the script never runs, the page still appears */
+  animation: veil-failsafe 0s linear 3.5s forwards;
+}
+@keyframes veil-failsafe { to { visibility: hidden; } }
+.veil {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 22px;
+  background: var(--ivory);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .9s var(--ease), visibility 0s linear .9s;
+}
+.veil.on { opacity: 1; visibility: visible; transition: opacity .65s var(--ease), visibility 0s; }
+.veil-mark { position: relative; width: 132px; aspect-ratio: 1; display: grid; place-items: center; }
+.veil-mark img { width: 74%; animation: veil-breathe 3.2s var(--ease-breath) infinite; }
+.veil-ring { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); }
+.veil-ring circle {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: .6;
+  stroke-dasharray: 296;
+  stroke-dashoffset: 296;
+}
+.veil.on.drawing .veil-ring circle { animation: veil-draw 1.5s var(--ease) forwards; }
+.veil-word {
+  min-height: 1.4em;
+  font-size: 11px;
+  letter-spacing: .34em;
+  text-transform: uppercase;
+  color: var(--coffee);
+  opacity: 0;
+  transition: opacity .8s var(--ease) .2s;
+}
+.veil.on .veil-word { opacity: 1; }
+@keyframes veil-draw { to { stroke-dashoffset: 0; } }
+@keyframes veil-breathe {
+  0%, 100% { transform: scale(.96); opacity: .82; }
+  50% { transform: scale(1.02); opacity: 1; }
 }
 
 /* ---------- Reduced motion: everything still, nothing hidden ---------- */
@@ -1272,7 +1334,7 @@ section { overflow: clip; }
   .breathe-words span:first-child { opacity: 1; }
   .breathe-words span:first-child::after { content: ", slowly"; }
   .subnav-ink, .panel, .nav, .nav > * { transition: none !important; }
-  ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+  html.veiled::after, .veil { display: none; }
 }
 
 /* ---------- The BAE. family page ---------- */
