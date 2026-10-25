@@ -23,10 +23,27 @@
       <span>BAE. Body</span>
     </a>
     <button class="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav"><span></span><span></span></button>
-    <nav class="nav" id="nav">
-      <a href="treatments.html" aria-current="page">Treatments</a>
-      <a href="about.html">About Angela</a>
-      <a href="treatments.html#aftercare">Aftercare</a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <div class="nav-item has-panel">
+        <a class="nav-link" href="treatments.html" aria-current="page">Treatments <svg class="chev" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5l5 5 5-5" fill="none" stroke="currentColor"/></svg></a>
+        <div class="panel">
+          <div class="panel-inner">
+            <div class="panel-treatments">
+              <a class="ptreat" href="treatments.html#lymphatic"><img src="assets/img/thumb-lymphatic.jpg" alt=""><span><strong>Lymphatic massage</strong><em>Gentle · Rhythmic · Restful</em></span></a>
+              <a class="ptreat" href="treatments.html#wood-therapy"><img src="assets/img/thumb-wood.jpg" alt=""><span><strong>Wood therapy</strong><em>Warm · Grounding · Rhythmic</em></span></a>
+              <a class="ptreat" href="treatments.html#swedish"><img src="assets/img/thumb-swedish.jpg" alt=""><span><strong>Swedish massage</strong><em>Relax · Release · Rebalance</em></span></a>
+            </div>
+            <div class="panel-more">
+              <a href="treatments.html#mobile">How a home visit works</a>
+              <a href="treatments.html#offers">Offers &amp; vouchers</a>
+              <a href="treatments.html#aftercare">Aftercare</a>
+              <a href="treatments.html#faq">Questions</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="nav-link" href="about.html">About Angela</a>
+      <a class="nav-link" href="index.html#family">The BAE. family</a>
       <a class="btn" href="contact.html">Book</a>
     </nav>
   </div>
@@ -41,20 +58,27 @@
       <span class="eyebrow">BAE. Body</span>
       <h1 class="display">The <span class="script" style="font-size:1.4em">treatments</span></h1>
       <p class="lede">Three treatments to begin with, each one shaped around you after a short consultation, and all of them brought to your home.</p>
-      <div class="jump">
-        <a class="link" href="#lymphatic">Lymphatic massage</a>
-        <a class="link" href="#wood-therapy">Wood therapy</a>
-        <a class="link" href="#swedish">Swedish massage</a>
-        <a class="link" href="#mobile">Home visits</a>
-      </div>
      </div>
       <div class="head-strip reveal">
-        <figure class="tile"><img src="assets/img/story-ritual.jpg" alt="Soft linen and sheer curtains. Behind the BAE. ritual."></figure>
-        <figure class="tile"><img src="assets/img/reel-swedish.jpg" alt="Warm massage oil poured into an open palm. Swedish massage."></figure>
-        <figure class="tile"><img src="assets/img/story-space.jpg" alt="Natural stone and an olive branch. Your space, your comfort, your time."></figure>
+        <figure class="tile" data-drift="0.04"><img src="assets/img/story-ritual.jpg" alt="Soft linen and sheer curtains. Behind the BAE. ritual."></figure>
+        <figure class="tile" data-drift="0.08"><img src="assets/img/reel-swedish.jpg" alt="Warm massage oil poured into an open palm. Swedish massage."></figure>
+        <figure class="tile" data-drift="0.05"><img src="assets/img/story-space.jpg" alt="Natural stone and an olive branch. Your space, your comfort, your time."></figure>
       </div>
     </div>
   </section>
+
+  <nav class="subnav" aria-label="On this page">
+    <div class="subnav-track">
+      <a href="#lymphatic">Lymphatic</a>
+      <a href="#wood-therapy">Wood therapy</a>
+      <a href="#swedish">Swedish</a>
+      <a href="#mobile">Home visits</a>
+      <a href="#aftercare">Aftercare</a>
+      <a href="#offers">Offers</a>
+      <a href="#faq">Questions</a>
+      <span class="subnav-ink" aria-hidden="true"></span>
+    </div>
+  </nav>
 
   <div class="wrap">
 
@@ -80,6 +104,7 @@
         <h3>Is it right for me?</h3>
         <p>How it suits you depends on you as an individual. Some medical conditions need specialist advice or clearance from your GP before booking, and Angela will go through this with you in your consultation.</p>
         <p class="note">This treatment is for relaxation and wellbeing. It isn't a medical treatment and isn't a substitute for advice from your GP or a specialist.</p>
+        <p class="next"><a href="#wood-therapy">Next <span>Wood therapy</span></a></p>
       </div>
     </article>
 
@@ -105,6 +130,7 @@
         <h3>Is it right for me?</h3>
         <p>Wood therapy isn't suitable for everyone, so it's always discussed in your consultation first. You'll be asked about your health, any skin conditions and any recent treatments or surgery.</p>
         <p class="note">Wood therapy is a bodywork and relaxation treatment. It doesn't promise fat loss, detoxification or permanent changes to body shape.</p>
+        <p class="next"><a href="#swedish">Next <span>Swedish massage</span></a></p>
       </div>
     </article>
 
@@ -129,17 +155,18 @@
         <p>A short chat about where you hold tension and how firm you like it, then time to switch off. You'll stay covered with warm linen except for the area being worked on.</p>
         <h3>Is it right for me?</h3>
         <p>Swedish massage suits most people. If you're pregnant, have a medical condition or have had recent surgery, mention it when you get in touch and Angela will advise.</p>
+        <p class="next"><a href="#mobile">Next <span>How a home visit works</span></a></p>
       </div>
     </article>
 
   </div>
 
   <!-- Home visits -->
-  <section class="pad tone-linen" id="mobile" style="scroll-margin-top:84px">
+  <section class="pad tone-linen" id="mobile">
     <div class="wrap split">
       <div class="pair reveal">
         <figure class="tile"><img src="assets/img/reel-delivered.jpg" alt="Soft muslin in sunlight. Wellness delivered to you."></figure>
-        <figure class="tile"><img src="assets/img/hero-room.jpg" alt="A treatment couch in ivory linen with a rolled BAE. towel" style="object-position:30% center"></figure>
+        <figure class="tile" data-drift="0.06"><img src="assets/img/hero-room.jpg" alt="A treatment couch in ivory linen with a rolled BAE. towel" style="object-position:30% center"></figure>
       </div>
       <div class="reveal">
         <span class="eyebrow">BAE. comes to you</span>
@@ -176,7 +203,7 @@
   </section>
 
   <!-- Aftercare -->
-  <section class="pad" id="aftercare" style="scroll-margin-top:84px">
+  <section class="pad" id="aftercare">
     <div class="wrap">
       <div class="center reveal">
         <span class="eyebrow">After your treatment</span>
@@ -223,7 +250,8 @@
   </section>
 
   <!-- Offers (Brand Bible 07). Amounts and terms are Angela's call once prices are set. -->
-  <section class="pad" id="offers" style="scroll-margin-top:84px">
+  <section class="pad" id="offers">
+    <div class="leaves" aria-hidden="true" style="top:-80px;left:-120px;width:420px;height:600px;transform-origin:top left"></div>
     <div class="wrap">
       <div class="center reveal">
         <span class="eyebrow">Coming at launch</span>
@@ -257,7 +285,7 @@
   </section>
 
   <!-- FAQ -->
-  <section class="pad tone-linen" id="faq" style="scroll-margin-top:84px">
+  <section class="pad tone-linen" id="faq">
     <div class="wrap">
       <div class="center reveal">
         <span class="eyebrow">Good to know</span>
@@ -325,15 +353,30 @@
     <span class="script">Before Anyone Else.</span>
     <p class="name">BAE. by Angela Ewart</p>
     <p>Massage, bodywork &amp; wellbeing · Mobile across Dunfermline &amp; surrounding areas</p>
-    <nav class="footer-nav">
-      <a href="treatments.html">Treatments</a>
-      <a href="about.html">About</a>
-      <a href="treatments.html#aftercare">Aftercare</a>
-      <a href="treatments.html#faq">FAQ</a>
-      <a href="contact.html">Book</a>
-      <a href="#" aria-label="Instagram (handle to confirm)">Instagram</a>
-      <a href="privacy.html">Privacy</a>
-    </nav>
+    <div class="footer-cols">
+      <nav aria-label="Treatments">
+        <span class="fh">Treatments</span>
+        <a href="treatments.html#lymphatic">Lymphatic massage</a>
+        <a href="treatments.html#wood-therapy">Wood therapy</a>
+        <a href="treatments.html#swedish">Swedish massage</a>
+        <a href="treatments.html#mobile">Home visits</a>
+        <a href="treatments.html#offers">Offers &amp; vouchers</a>
+      </nav>
+      <nav aria-label="BAE.">
+        <span class="fh">BAE.</span>
+        <a href="about.html">About Angela</a>
+        <a href="index.html#family">The BAE. family</a>
+        <a href="treatments.html#aftercare">Aftercare</a>
+        <a href="treatments.html#faq">Questions</a>
+        <a href="privacy.html">Privacy</a>
+      </nav>
+      <nav aria-label="Get in touch">
+        <span class="fh">Get in touch</span>
+        <a href="contact.html">Book or enquire</a>
+        <a href="#" aria-label="Instagram (handle to confirm)">Instagram</a>
+        <span>Dunfermline &amp; surrounding areas</span>
+      </nav>
+    </div>
     <p class="fine">© <span data-year>2026</span> BAE. by Angela Ewart. Treatments are not a substitute for medical advice. If you have a medical condition, please speak to your GP before booking.</p>
   </div>
 </footer>
