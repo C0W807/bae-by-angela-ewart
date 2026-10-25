@@ -111,6 +111,14 @@ if (subnav) {
   pick();
 }
 
+// Arriving from the BAE. family page (contact.html?interest=retreats) picks that branch
+const interest = new URLSearchParams(location.search).get('interest');
+const pickTreatment = document.querySelector('select[name="treatment"]');
+if (interest && pickTreatment) {
+  const opt = [...pickTreatment.options].find((o) => o.value === interest);
+  if (opt) pickTreatment.value = opt.value;
+}
+
 // Enquiry form: posts to Netlify Forms when hosted there. Anywhere else (GitHub Pages,
 // local preview) the post fails, so say so rather than thank her for a lost message.
 const form = document.querySelector('form.enquiry');

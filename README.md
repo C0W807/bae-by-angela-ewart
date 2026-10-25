@@ -8,13 +8,17 @@ moodboard.
 index.html        Home
 treatments.html   The three treatments, home visits, aftercare, FAQ
 about.html        Angela's story (her own words from the Brand Bible)
+family.html       The BAE. family: BODY now; MOVEMENT, RITUALS, RETREATS, EVERYDAY later
+privacy.html      Draft privacy notice
 contact.html      Contact details and enquiry form
 css/style.css     Everything visual; palette tokens at the top
 js/site.js        Menu, scroll reveals, enquiry form
 assets/img/       Logo and photos (all provisional, see below)
 ```
 
-Preview by opening `index.html` in a browser.
+Preview by opening `index.html` in a browser. After changing `css/style.css` or
+`js/site.js`, bump the `?v=` number on their links in every page so returning
+visitors (and iPhone Safari) pick up the new file.
 
 ## Still to confirm with Angela
 

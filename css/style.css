@@ -16,8 +16,12 @@
   --script: "Allura", "Snell Roundhand", cursive;
 
   --wrap: 1180px;
-  --gutter: clamp(20px, 5vw, 48px);
+  /* Pages draw edge to edge on phones (viewport-fit=cover); keep text clear of notches. */
+  --gutter: max(clamp(20px, 5vw, 48px), env(safe-area-inset-left, 0px), env(safe-area-inset-right, 0px));
+  --safe-top: env(safe-area-inset-top, 0px);
   --header-h: 84px;
+  /* Header plus the status bar it sits under on a phone */
+  --header-total: calc(var(--header-h) + var(--safe-top));
 
   /* Motion language. Nothing is quick and nothing bounces; everything eases in and out.
      settle : 1.4s, things arriving (reveals, menus, hovers)
@@ -46,10 +50,13 @@ body {
   overflow-x: hidden;
 }
 
-/* Paper grain over everything: the "textured ivory muslin" of the brand. */
+/* Paper grain over everything: the "textured ivory muslin" of the brand.
+   Pinned to the page, not the screen: iOS Safari tints its status bar from fixed
+   layers at the top edge, and a fixed full-screen grain would be the one it reads. */
+body { position: relative; }
 body::before {
   content: "";
-  position: fixed;
+  position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: 100;
@@ -203,6 +210,8 @@ h1, h2, h3 {
   border-bottom: 1px solid transparent;
   transition: border-color var(--settle) var(--ease);
   view-transition-name: site-header;
+  /* Reach up under the phone's status bar, so the page never shows above the header. */
+  padding-top: var(--safe-top);
 }
 .site-header.scrolled { border-bottom-color: rgba(186, 152, 104, .35); }
 
@@ -343,6 +352,9 @@ h1, h2, h3 {
 
 @media (max-width: 960px) {
   :root { --header-h: 72px; }
+  /* Solid, no blur: iOS Safari fills the status-bar strip with the colour of a solid
+     header pinned to the top; a translucent one leaves the page showing up there. */
+  .site-header { background: var(--ivory); -webkit-backdrop-filter: none; backdrop-filter: none; }
   .brand img { width: 46px; }
   .brand span { font-size: 15px; }
   .nav-toggle { display: block; }
@@ -354,7 +366,7 @@ h1, h2, h3 {
     top: 100%;
     left: 0;
     right: 0;
-    height: calc(100dvh - var(--header-h));
+    height: calc(100dvh - var(--header-total));
     flex-direction: column;
     align-items: stretch;
     gap: 0;
@@ -985,20 +997,33 @@ form.sent .form-done { display: block; }
 }
 .branch.now .when { color: var(--espresso); border-bottom-color: var(--gold); }
 .branch p { margin: 0; font-size: 15px; line-height: 1.6; }
-@media (max-width: 960px) {
-  .family {
-    grid-template-columns: none;
-    grid-auto-flow: column;
-    grid-auto-columns: 44%;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-    padding-bottom: 6px;
+.branch .bname { display: none; }
+/* Phones: all five as a list, photo beside words, so none hide off-screen. */
+@media (max-width: 860px) {
+  .family { grid-template-columns: 1fr; gap: 0; margin-top: 40px; }
+  .branch {
+    display: grid;
+    grid-template-columns: 104px 1fr;
+    gap: 20px;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(186, 152, 104, .25);
   }
-  .family::-webkit-scrollbar { display: none; }
-  .branch { scroll-snap-align: start; }
+  .branch:first-child { border-top: 1px solid rgba(186, 152, 104, .25); }
+  .branch .plate { left: 6%; right: 6%; padding: 4px; }
+  .branch .plate strong { font-size: 10px; letter-spacing: .14em; }
+  .branch .plate span { font-size: 8px; letter-spacing: .2em; }
+  .branch .bname {
+    display: block;
+    font-family: var(--display);
+    font-size: 1.45rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--espresso);
+    line-height: 1.2;
+  }
+  .branch .when { margin: .4rem 0 .4rem; }
 }
-@media (max-width: 560px) { .family { grid-auto-columns: 62%; } }
 
 /* ---------- Offers ---------- */
 
@@ -1030,7 +1055,7 @@ form.sent .form-done { display: block; }
 
 .subnav {
   position: sticky;
-  top: var(--header-h);
+  top: var(--header-total);
   z-index: 40;
   background: rgba(248, 245, 239, .92);
   -webkit-backdrop-filter: blur(12px);
@@ -1073,8 +1098,8 @@ form.sent .form-done { display: block; }
 }
 @media (max-width: 960px) { .subnav-track { justify-content: flex-start; } }
 
-.treatment, #mobile, #offers, #aftercare, #faq { scroll-margin-top: calc(var(--header-h) + 54px); }
-#treatments, #family { scroll-margin-top: var(--header-h); }
+.treatment, #mobile, #offers, #aftercare, #faq, .branch-row { scroll-margin-top: calc(var(--header-total) + 54px); }
+#treatments, #family { scroll-margin-top: var(--header-total); }
 
 .next { margin: 2.6rem 0 0; }
 .next a {
@@ -1248,3 +1273,48 @@ section { overflow: clip; }
   .subnav-ink, .panel, .nav, .nav > * { transition: none !important; }
   ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
 }
+
+/* ---------- The BAE. family page ---------- */
+
+.branch-list { padding-bottom: clamp(40px, 6vw, 80px); }
+.branch-row {
+  padding: clamp(60px, 9vw, 120px) 0;
+  border-top: 1px solid rgba(186, 152, 104, .3);
+}
+.branch-row:first-child { border-top: 0; }
+.branch-row > .tile { aspect-ratio: 131 / 244; width: min(320px, 100%); justify-self: center; }
+.branch-row .status {
+  display: inline-block;
+  margin-bottom: 1.2rem;
+  padding: .45em 1.1em;
+  border: 1px solid var(--oat);
+  border-radius: 999px;
+  font-size: 10px;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--coffee);
+}
+.branch-row .status.now { border-color: var(--gold); background: var(--coffee); color: var(--ivory); }
+.includes { list-style: none; padding: 0; margin: 1.6rem 0 2.2rem; }
+.includes li {
+  padding: .75rem 0 .75rem 1.6rem;
+  border-bottom: 1px solid rgba(186, 152, 104, .25);
+  position: relative;
+}
+.includes li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 1.35rem;
+  width: 6px;
+  height: 6px;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+}
+@media (max-width: 860px) {
+  .branch-row > .tile { width: min(240px, 70%); }
+}
+/* Small tiles in a page-head strip: caption text scales with the tile */
+.head-strip .plate { left: 6%; right: 6%; padding: 6px; }
+.head-strip .plate strong { font-size: clamp(10px, 1.15vw, 1.15rem); letter-spacing: .14em; }
+.head-strip .plate span { font-size: clamp(8px, .7vw, 10px); }
