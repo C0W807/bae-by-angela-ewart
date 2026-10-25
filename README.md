@@ -1,6 +1,6 @@
-# BAE. by Angela Ewart — website
+# BAE by Angela Ewart — website
 
-A static site (plain HTML, CSS and a little JS, no build step) for BAE. BODY, Angela's
+A static site (plain HTML, CSS and a little JS, no build step) for BAE BODY, Angela's
 mobile massage service in Dunfermline. Built from the Brand Bible (Oct 2026) and the
 moodboard.
 
@@ -8,7 +8,7 @@ moodboard.
 index.html        Home
 treatments.html   The three treatments, home visits, aftercare, FAQ
 about.html        Angela's story (her own words from the Brand Bible)
-family.html       The BAE. family: BODY now; MOVEMENT, RITUALS, RETREATS, EVERYDAY later
+family.html       The BAE family: BODY now; MOVEMENT, RITUALS, RETREATS, EVERYDAY later
 privacy.html      Draft privacy notice
 contact.html      Contact details and enquiry form
 css/style.css     Everything visual; palette tokens at the top
@@ -29,7 +29,7 @@ Everything marked with a dashed gold box on the site (`class="tbc"`):
 - Deposit, payment methods and cancellation policy
 - Email, phone / WhatsApp and Instagram handle (contact page and footer links)
 - Qualifications and insurance (treatments page, home visits)
-- Offer amounts and terms: The BAE. Welcome, The BAE. Ritual, Bring Your BAE., gift
+- Offer amounts and terms: The BAE Welcome, The BAE Ritual, Bring Your BAE, gift
   vouchers (treatments page, `#offers`)
 - Set-up time, and that the hygiene answer in the FAQ matches what she actually does
 - Privacy notice (`privacy.html`): her email, ICO registration, how long records are

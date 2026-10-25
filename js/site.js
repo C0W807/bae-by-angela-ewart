@@ -111,7 +111,7 @@ if (subnav) {
   pick();
 }
 
-// Arriving from the BAE. family page (contact.html?interest=retreats) picks that branch
+// Arriving from the BAE family page (contact.html?interest=retreats) picks that branch
 const interest = new URLSearchParams(location.search).get('interest');
 const pickTreatment = document.querySelector('select[name="treatment"]');
 if (interest && pickTreatment) {
@@ -147,7 +147,7 @@ if (form) {
   });
 }
 
-// Header name: "BAE." plus whichever part of BAE. you're in (data-brand on a
+// Header name: "BAE" plus whichever part of BAE you're in (data-brand on a
 // section, or the page's own on <body>), changing with a soft fade
 const MASTER = 'by Angela Ewart';
 const sub = document.querySelector('.brand .sub');
@@ -206,7 +206,7 @@ const useVeil = calm.matches;
 // Arriving on a page: the ivory screen from <head> becomes the veil, then lifts
 if (document.documentElement.classList.contains('veiled')) {
   const brand = document.body.dataset.brand || MASTER;
-  veilWord.textContent = brand === MASTER ? 'BAE. by Angela Ewart' : `BAE. ${brand}`;
+  veilWord.textContent = brand === MASTER ? 'BAE by Angela Ewart' : `BAE ${brand}`;
   veil.classList.add('on');
   draw();
   requestAnimationFrame(() => document.documentElement.classList.remove('veiled'));
